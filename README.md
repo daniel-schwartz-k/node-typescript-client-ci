@@ -1,0 +1,1 @@
+# Kaltura Node Typescript client generator 
