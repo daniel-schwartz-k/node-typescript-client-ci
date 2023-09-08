@@ -1,0 +1,28 @@
+name: Update Client
+
+on: [push] # just for testing..
+
+# on:
+#   schedule:
+#     # Every day at 12:00 AM and 12:00 PM
+#     - cron:  '* 0,12 * * *'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 7.4
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.21.3
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Test
+      run: |
+        php -v
+        node -v
+
