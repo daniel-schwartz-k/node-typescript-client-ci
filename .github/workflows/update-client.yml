@@ -9,14 +9,14 @@ on: [push] # just for testing..
 
 jobs:
   update:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
         php-version: 7.4
     - name: Setup Node
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
         node-version: 14.21.3
     - name: Checkout
