@@ -27,7 +27,7 @@ jobs:
         ls -la
     - name: 🔄 Fetch latest scheme
       run: | 
-        wget http://www.kaltura.com/api_v3/api_schema.php -O clients-generator/api_schema.php.xml
+        wget http://www.kaltura.com/api_v3/api_schema.php -O $HOME/clients-generator/api_schema.php.xml
         version=`cat clients-generator/api_schema.php.xml | grep apiVersion | grep -oP 'apiVersion=[^ ]+'`
         echo "Got schema ${version}"
     - name: ⚙️ Generate
