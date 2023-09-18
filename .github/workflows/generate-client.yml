@@ -26,12 +26,13 @@ jobs:
     - name: ☁️ Clone
       run: |
         git clone https://github.com/kaltura/clients-generator.git
-        branch=`git branch`
+        branch=`git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'`
+        echo $branch
         echo "client_branch=${branch}" >> "$GITHUB_ENV"
     - name: 🔄 Fetch latest scheme
       run: | 
         wget http://www.kaltura.com/api_v3/api_schema.php -O api_schema.php.xml
-        version=`cat api_schema.php.xml | grep -oP 'apiVersion=\K[^ ]+'`
+        version=`cat api_schema.php.xml | grep -oP '(?<=apiVersion=")[^ ]+(?=")'`
         date=`cat api_schema.php.xml | grep -oP 'Generated on date [^-]+'`
         echo "Got schema ${version}"
         echo ${date}
@@ -55,5 +56,5 @@ jobs:
         tag_name: ${{env.generated_name}}
         body: |
           ${{env.client_branch}} ${{env.schema_version}}
-          ${{env.schema_date}}
+          BE schema: ${{env.schema_date}}
           Client lib: ${{env.generated_name}}
