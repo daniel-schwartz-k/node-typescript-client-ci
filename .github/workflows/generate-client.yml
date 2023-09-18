@@ -11,15 +11,15 @@ jobs:
   update:
     runs-on: ubuntu-22.04
     steps:
-    - name: Setup PHP
+    - name: 📦 Setup PHP
       uses: shivammathur/setup-php@v2
       with:
         php-version: 7.4
-    - name: Setup Node
+    - name: ⬡ Setup Node
       uses: actions/setup-node@v3
       with:
         node-version: 14.21.3
-    - name: Checkout
+    - name: 📦 Checkout
       uses: actions/checkout@v3
     - name: ☁️ Clone
       run: |
@@ -33,7 +33,7 @@ jobs:
     - name: ⚙️ Generate
       run: |
         mkdir client
-        # php clients-generator/exec.php -xclients-generator/api_schema.php.xml -rclient nodeTypescript
+        php clients-generator/exec.php -xclients-generator/api_schema.php.xml -rclient nodeTypescript
     - name: 🛠️ Build
       run: |
         cd /client/web/content/clientlibs/nodeTypescript
