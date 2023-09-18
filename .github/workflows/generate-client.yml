@@ -43,5 +43,7 @@ jobs:
     - name: 📤 Upload
       uses: actions/upload-artifact@v3
       with:
+      #  NewClientName=`ls dist | grep kaltura-node-typescript-client`
+      # /nodeTypescript/dist/$NewClientName
         name: kaltura-node-typescript-client
-        path: ./client/web/content/clientlibs/nodeTypescript
+        path: ./client/web/content/clientlibs/nodeTypescript/dist
