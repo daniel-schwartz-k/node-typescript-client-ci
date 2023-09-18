@@ -48,11 +48,12 @@ jobs:
         npm i
         npm run deploy
         echo "generated_name=`ls dist/ | grep kaltura-node-typescript-client`" >> "$GITHUB_ENV"
+        echo "generated_name_short=`ls dist/ | grep kaltura-node-typescript-client | grep -oP '(?<=-v).+'`" >> "$GITHUB_ENV"
     - name: 🚀 Release
       uses: softprops/action-gh-release@v1
       with:
         files: ./client/web/content/clientlibs/nodeTypescript/dist/kaltura-node-typescript-client-*
-        name: ${{env.generated_name}}
+        name: ${{env.generated_name_short}}
         tag_name: ${{env.generated_name}}
         body: |
           * BE version: ${{env.schema_version}} 
