@@ -55,6 +55,6 @@ jobs:
         name: ${{env.generated_name}}
         tag_name: ${{env.generated_name}}
         body: |
-          ${{env.schema_version}}
-          BE schema: ${{env.schema_date}}
-          Client lib: ${{env.generated_name}}
+          * BE version: ${{env.schema_version}} 
+            ${{env.schema_date}}
+          * Client lib: ${{env.generated_name}}
