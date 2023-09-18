@@ -26,9 +26,9 @@ jobs:
     - name: ☁️ Clone
       run: |
         git clone https://github.com/kaltura/clients-generator.git
-        branch=`git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'`
-        echo $branch
-        echo "client_branch=${branch}" >> "$GITHUB_ENV"
+        # branch=`git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'`
+        # echo $branch
+        # echo "client_branch=${branch}" >> "$GITHUB_ENV"
     - name: 🔄 Fetch latest scheme
       run: | 
         wget http://www.kaltura.com/api_v3/api_schema.php -O api_schema.php.xml
@@ -52,9 +52,9 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: ./client/web/content/clientlibs/nodeTypescript/dist/kaltura-node-typescript-client-*
-        name: ${{env.client_branch}} ${{env.schema_version}}
+        name: ${{env.generated_name}}
         tag_name: ${{env.generated_name}}
         body: |
-          ${{env.client_branch}} ${{env.schema_version}}
+          ${{env.schema_version}}
           BE schema: ${{env.schema_date}}
           Client lib: ${{env.generated_name}}
