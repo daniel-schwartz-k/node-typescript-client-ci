@@ -47,4 +47,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: kaltura-node-typescript-client
-        path: ./client/web/content/clientlibs/nodeTypescript/dist
+        path: ./client/web/content/clientlibs/nodeTypescript/dist/kaltura-node-typescript-client-*
