@@ -27,13 +27,13 @@ jobs:
         ls -la
     - name: 🔄 Fetch latest scheme
       run: | 
-        wget http://www.kaltura.com/api_v3/api_schema.php -O $HOME/clients-generator/api_schema.php.xml
-        version=`cat clients-generator/api_schema.php.xml | grep apiVersion | grep -oP 'apiVersion=[^ ]+'`
+        wget http://www.kaltura.com/api_v3/api_schema.php -O api_schema.php.xml
+        version=`cat api_schema.php.xml | grep apiVersion | grep -oP 'apiVersion=[^ ]+'`
         echo "Got schema ${version}"
     - name: ⚙️ Generate
       run: |
         mkdir client
-        php ./clients-generator/exec.php -x$HOME/clients-generator/api_schema.php.xml -r$HOME/client nodeTypescript
+        php ./clients-generator/exec.php -x$HOME/api_schema.php.xml -r$HOME/client nodeTypescript
     - name: 🛠️ Build
       run: |
         cd ./client/web/content/clientlibs/nodeTypescript
