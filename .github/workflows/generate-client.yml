@@ -37,11 +37,11 @@ jobs:
         php exec.php -xapi_schema.php.xml -r../client nodeTypescript
     - name: 🛠️ Build
       run: |
-        cd ../client/web/content/clientlibs/nodeTypescript
+        cd /client/web/content/clientlibs/nodeTypescript
         npm i
         npm run deploy
     - name: 📤 Upload Cypress output assets
       uses: actions/upload-artifact@v3
       with:
         name: kaltura-node-typescript-client
-        path: ../client/web/content/clientlibs/nodeTypescript
+        path: /client/web/content/clientlibs/nodeTypescript
