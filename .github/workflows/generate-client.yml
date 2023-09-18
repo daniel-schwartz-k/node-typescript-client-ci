@@ -50,8 +50,8 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: ./client/web/content/clientlibs/nodeTypescript/dist/kaltura-node-typescript-client-*
-        name: $schema_version
-        tag_name: $generated_name
+        name: ${{schema_version}}
+        tag_name: ${{generated_name}}
         body: |
-          Release of $generated_name 
-          $schema_version
+          Release of ${{generated_name}} 
+          ${{schema_version}}
