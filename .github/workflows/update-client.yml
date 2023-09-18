@@ -1,6 +1,11 @@
 name: Update Client
 
 workflow_dispatch:
+    inputs:
+      ref:
+        description: 'The branch, tag or SHA to checkout'
+        required: true
+        default: 'master'
 
 # on:
 #   schedule:
