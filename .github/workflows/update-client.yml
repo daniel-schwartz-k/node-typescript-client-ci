@@ -1,7 +1,6 @@
 name: Update Client
         
-on: 
-  workflow_dispatch:
+on: ['push']
 
 # on:
 #   schedule:
