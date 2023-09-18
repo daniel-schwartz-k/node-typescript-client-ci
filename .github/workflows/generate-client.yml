@@ -36,7 +36,7 @@ jobs:
         ls -la
         echo ------
         ls -ls clients-generator/
-        php ./clients-generator/exec.php -x$HOME/api_schema.php.xml -r$HOME/client nodeTypescript
+        php ./clients-generator/exec.php -xapi_schema.php.xml -rclient nodeTypescript
     - name: 🛠️ Build
       run: |
         cd ./client/web/content/clientlibs/nodeTypescript
