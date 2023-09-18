@@ -1,0 +1,41 @@
+name: Generate Client
+        
+on: ['push']
+
+# on:
+#   schedule:
+#     # Every day at 12:00 AM and 12:00 PM
+#     - cron:  '* 0,12 * * *'
+
+jobs:
+  update:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 7.4
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 14.21.3
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: ☁️ Clone
+      run: |
+        git clone https://github.com/kaltura/clients-generator.git
+        ls -la
+    - name: 🔄 Fetch latest scheme
+      run: | 
+        wget http://www.kaltura.com/api_v3/api_schema.php -O clients-generator/api_schema.php.xml
+        version=`cat clients-generator/api_schema.php.xml | grep apiVersion | grep -oP 'apiVersion=[^ ]+'`
+        echo "Got schema ${version}"
+    - name: ⚙️ Generate
+      run: |
+        cd clients-generator
+        php exec.php -xapi_schema.php.xml -r$HOME/.local/bin nodeTypescript
+    - name: 🛠️ Build
+      run: |
+        cd $HOME/.local/bin/web/content/clientlibs/nodeTypescript
+        npm i
+        npm run deploy
