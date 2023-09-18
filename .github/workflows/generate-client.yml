@@ -35,7 +35,6 @@ jobs:
         echo "schema_version=${version}" >> "$GITHUB_ENV"
     - name: ⚙️ Generate
       run: |
-        echo $schema_version
         mkdir client
         php ./clients-generator/exec.php -x$PWD/api_schema.php.xml -r$PWD/client nodeTypescript
         echo "generated_name=$(`ls dist | grep kaltura-node-typescript-client`)" >> "$GITHUB_ENV"
@@ -48,8 +47,8 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: ./client/web/content/clientlibs/nodeTypescript/dist/kaltura-node-typescript-client-*
-        name: $schema_version
-        tag_name: $generated_name
+        name: ${{env.schema_version}}
+        tag_name: ${{env.generated_name}}
         body: |
-          Release of generated_name 
-          schema_version
+          Release of ${{env.generated_name}}
+          ${{env.schema_version}}
