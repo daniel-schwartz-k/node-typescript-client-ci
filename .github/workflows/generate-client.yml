@@ -26,13 +26,17 @@ jobs:
     - name: ☁️ Clone
       run: |
         git clone https://github.com/kaltura/clients-generator.git
-        ls -la
+        branch=`git branch`
+        echo "client_branch=${branch}" >> "$GITHUB_ENV"
     - name: 🔄 Fetch latest scheme
       run: | 
         wget http://www.kaltura.com/api_v3/api_schema.php -O api_schema.php.xml
-        version=`cat api_schema.php.xml | grep apiVersion | grep -oP 'apiVersion=[^ ]+'`
+        version=`cat api_schema.php.xml | grep -oP 'apiVersion=\K[^ ]+'`
+        date=`cat api_schema.php.xml | grep -oP 'Generated on date [^-]+'`
         echo "Got schema ${version}"
+        echo ${date}
         echo "schema_version=${version}" >> "$GITHUB_ENV"
+        echo "schema_date=${date}" >> "$GITHUB_ENV"
     - name: ⚙️ Generate
       run: |
         mkdir client
@@ -47,8 +51,9 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: ./client/web/content/clientlibs/nodeTypescript/dist/kaltura-node-typescript-client-*
-        name: ${{env.schema_version}}
+        name: ${{env.client_branch}} ${{env.schema_version}}
         tag_name: ${{env.generated_name}}
         body: |
-          Release of ${{env.generated_name}}
-          ${{env.schema_version}}
+          ${{env.client_branch}} ${{env.schema_version}}
+          ${{schema_date}}
+          Client lib: ${{env.generated_name}}
