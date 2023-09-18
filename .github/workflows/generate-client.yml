@@ -39,9 +39,9 @@ jobs:
         cd ./client/web/content/clientlibs/nodeTypescript
         npm i
         npm run deploy
-      # TODO save name for next step so we can upload only the package..
-      #  NewClientName=`ls dist | grep kaltura-node-typescript-client`
-      # /nodeTypescript/dist/$NewClientName
+        # TODO save name for next step so we can upload only the package..
+        #  NewClientName=`ls dist | grep kaltura-node-typescript-client`
+        # /nodeTypescript/dist/$NewClientName
         rm -rf ./dist/node_modules
     - name: 📤 Upload
       uses: actions/upload-artifact@v3
