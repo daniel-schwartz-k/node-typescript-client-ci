@@ -34,10 +34,10 @@ jobs:
       run: |
         mkdir client
         cd clients-generator
-        php exec.php -xapi_schema.php.xml -r../client nodeTypescript
+        php exec.php -xapi_schema.php.xml -r$HOME/client nodeTypescript
     - name: 🛠️ Build
       run: |
-        cd ./client/web/content/clientlibs/nodeTypescript
+        cd /client/web/content/clientlibs/nodeTypescript
         npm i
         npm run deploy
     - name: 📤 Upload Cypress output assets
