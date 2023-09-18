@@ -55,5 +55,5 @@ jobs:
         tag_name: ${{env.generated_name}}
         body: |
           ${{env.client_branch}} ${{env.schema_version}}
-          ${{schema_date}}
+          ${{env.schema_date}}
           Client lib: ${{env.generated_name}}
