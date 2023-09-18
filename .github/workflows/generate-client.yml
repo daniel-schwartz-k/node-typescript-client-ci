@@ -37,7 +37,7 @@ jobs:
       run: |
         mkdir client
         php ./clients-generator/exec.php -x$PWD/api_schema.php.xml -r$PWD/client nodeTypescript
-        echo "generated_name=$(`ls ./client/dist | grep kaltura-node-typescript-client`)" >> "$GITHUB_ENV"
+        echo "generated_name=$(`ls $PWD/client/dist | grep kaltura-node-typescript-client`)" >> "$GITHUB_ENV"
     - name: 🛠️ Build
       run: |
         cd ./client/web/content/clientlibs/nodeTypescript
