@@ -34,7 +34,8 @@ jobs:
       run: |
         mkdir client
         cd clients-generator
-        php exec.php -xapi_schema.php.xml -r$HOME/client nodeTypescript
+        php exec.php -xapi_schema.php.xml -r../client nodeTypescript
+        ls -la
     - name: 🛠️ Build
       run: |
         cd /client/web/content/clientlibs/nodeTypescript
