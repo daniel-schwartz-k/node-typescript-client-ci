@@ -1,9 +1,9 @@
 name: Generate Client
         
 on: 
-  - push:
-  - workflow_dispatch:
-  - schedule:
+  push:
+  workflow_dispatch:
+  schedule:
     # Every day at 12:00 AM and 12:00 PM
     - cron:  '* 0,12 * * *'
 
