@@ -32,15 +32,16 @@ jobs:
         echo "Got schema ${version}"
     - name: ⚙️ Generate
       run: |
+        mkdir client
         cd clients-generator
-        php exec.php -xapi_schema.php.xml -r$HOME/.local/bin nodeTypescript
+        php exec.php -xapi_schema.php.xml -r../client nodeTypescript
     - name: 🛠️ Build
       run: |
-        cd $HOME/.local/bin/web/content/clientlibs/nodeTypescript
+        cd ../client/web/content/clientlibs/nodeTypescript
         npm i
         npm run deploy
     - name: 📤 Upload Cypress output assets
       uses: actions/upload-artifact@v3
       with:
         name: kaltura-node-typescript-client
-        path: $HOME/.local/bin/web/content/clientlibs/nodeTypescript
+        path: ../client/web/content/clientlibs/nodeTypescript
