@@ -33,10 +33,7 @@ jobs:
     - name: ⚙️ Generate
       run: |
         mkdir client
-        ls -la
-        echo ------
-        ls -ls clients-generator/
-        php ./clients-generator/exec.php -xapi_schema.php.xml -rclient nodeTypescript
+        php ./clients-generator/exec.php -x./api_schema.php.xml -r./client nodeTypescript
     - name: 🛠️ Build
       run: |
         cd ./client/web/content/clientlibs/nodeTypescript
