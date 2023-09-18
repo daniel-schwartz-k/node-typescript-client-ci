@@ -37,12 +37,12 @@ jobs:
       run: |
         mkdir client
         php ./clients-generator/exec.php -x$PWD/api_schema.php.xml -r$PWD/client nodeTypescript
-        echo "generated_name=$(`ls ./client/web/content/clientlibs/nodeTypescript/dist | grep kaltura-node-typescript-client`)" >> "$GITHUB_ENV"
     - name: 🛠️ Build
       run: |
         cd ./client/web/content/clientlibs/nodeTypescript
         npm i
         npm run deploy
+        echo "generated_name=$(`ls ./dist | grep kaltura-node-typescript-client`)" >> "$GITHUB_ENV"
     - name: 🚀 Release
       uses: softprops/action-gh-release@v1
       with:
