@@ -26,21 +26,34 @@ jobs:
         git clone https://github.com/kaltura/clients-generator.git
         ls -la
     - name: 🔄 Fetch latest scheme
+      id: schema
       run: | 
         wget http://www.kaltura.com/api_v3/api_schema.php -O api_schema.php.xml
         version=`cat api_schema.php.xml | grep apiVersion | grep -oP 'apiVersion=[^ ]+'`
         echo "Got schema ${version}"
+        echo "::set-output name=version::${version}"
     - name: ⚙️ Generate
+      id: generated
       run: |
         mkdir client
         php ./clients-generator/exec.php -x$PWD/api_schema.php.xml -r$PWD/client nodeTypescript
+        echo "::set-output name=label::$(`ls dist | grep kaltura-node-typescript-client`)"
     - name: 🛠️ Build
       run: |
         cd ./client/web/content/clientlibs/nodeTypescript
         npm i
         npm run deploy
-    - name: 📤 Upload
-      uses: actions/upload-artifact@v3
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+    - name: 🚀 Release
+      env:
+        SCHEMA_VERSION: ${{ steps.schema.outputs.version }}
+        GENERATED_LABEL: ${{ steps.generated.outputs.label }}
+      uses: softprops/action-gh-release@v1
       with:
-        name: kaltura-node-typescript-client
-        path: ./client/web/content/clientlibs/nodeTypescript/dist/kaltura-node-typescript-client-*
+        files: ./client/web/content/clientlibs/nodeTypescript/dist/kaltura-node-typescript-client-*
+        name: ${SCHEMA_VERSION}
+        body: |
+          Release of ${GENERATED_LABEL} 
+          ${SCHEMA_VERSION}
