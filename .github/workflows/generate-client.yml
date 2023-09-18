@@ -39,7 +39,8 @@ jobs:
         cd ./client/web/content/clientlibs/nodeTypescript
         npm i
         npm run deploy
-    - name: 📤 Upload Cypress output assets
+        ls -la
+    - name: 📤 Upload
       uses: actions/upload-artifact@v3
       with:
         name: kaltura-node-typescript-client
