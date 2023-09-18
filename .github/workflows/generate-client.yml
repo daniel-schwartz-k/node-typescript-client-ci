@@ -33,11 +33,11 @@ jobs:
       run: | 
         wget http://www.kaltura.com/api_v3/api_schema.php -O api_schema.php.xml
         version=`cat api_schema.php.xml | grep -oP '(?<=apiVersion=")[^ ]+(?=")'`
-        date=`cat api_schema.php.xml | grep -oP 'Generated on date [^-]+'`
         echo "Got schema ${version}"
-        echo ${date}
         echo "schema_version=${version}" >> "$GITHUB_ENV"
-        echo "schema_date=${date}" >> "$GITHUB_ENV"
+        schema_date=`cat api_schema.php.xml | grep -oP '(?<=Generated on date )[^-]+'`
+        echo ${schema_date}
+        echo "schema_date=${schema_date}" >> "$GITHUB_ENV"
     - name: ⚙️ Generate
       run: |
         mkdir client
@@ -49,6 +49,9 @@ jobs:
         npm run deploy
         echo "generated_name=`ls dist/ | grep kaltura-node-typescript-client`" >> "$GITHUB_ENV"
         echo "generated_name_short=`ls dist/ | grep kaltura-node-typescript-client | grep -oP '(?<=-v).+'`" >> "$GITHUB_ENV"
+        client_date=`date -u "+%d/%m/%y %H:%M:%S"`
+        echo ${client_date}
+        echo "client_date=${client_date}" >> "$GITHUB_ENV"
     - name: 🚀 Release
       uses: softprops/action-gh-release@v1
       with:
@@ -57,5 +60,6 @@ jobs:
         tag_name: ${{env.generated_name}}
         body: |
           * BE version: ${{env.schema_version}} 
-            ${{env.schema_date}}
+            schema created at ${{env.schema_date}} 
           * Client lib: ${{env.generated_name}}
+            created at ${{env.client_date}}
