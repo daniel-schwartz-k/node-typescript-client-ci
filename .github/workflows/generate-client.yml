@@ -47,7 +47,7 @@ jobs:
     - name: 🚀 Release
       uses: softprops/action-gh-release@v1
       permissions:
-      contents: write
+        contents: write
       with:
         files: ./client/web/content/clientlibs/nodeTypescript/dist/kaltura-node-typescript-client-*
         name: $schema_version
