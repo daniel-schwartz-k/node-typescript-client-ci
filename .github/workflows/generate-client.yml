@@ -42,8 +42,7 @@ jobs:
         cd ./client/web/content/clientlibs/nodeTypescript
         npm i
         npm run deploy
-        echo "generated_name=$(`ls ./dist | grep kaltura-node-typescript-client`)" >> "$GITHUB_ENV"
-        echo $(`ls ./dist | grep kaltura-node-typescript-client`)
+        echo "generated_name=`ls dist/ | grep kaltura-node-typescript-client`" >> "$GITHUB_ENV"
     - name: 🚀 Release
       uses: softprops/action-gh-release@v1
       with:
