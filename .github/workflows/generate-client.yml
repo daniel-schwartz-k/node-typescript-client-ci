@@ -54,6 +54,7 @@ jobs:
       with:
         files: ./client/web/content/clientlibs/nodeTypescript/dist/kaltura-node-typescript-client-*
         name: ${SCHEMA_VERSION}
+        tag_name: ${GENERATED_LABEL}
         body: |
           Release of ${GENERATED_LABEL} 
           ${SCHEMA_VERSION}
