@@ -1,11 +1,10 @@
 name: Generate Client
         
-on: ['push']
-
-# on:
-#   schedule:
-#     # Every day at 12:00 AM and 12:00 PM
-#     - cron:  '* 0,12 * * *'
+on: - ['push']
+    - workflow_dispatch:
+    - schedule:
+      # Every day at 12:00 AM and 12:00 PM
+      - cron:  '* 0,12 * * *'
 
 jobs:
   update:
